@@ -17,5 +17,11 @@ vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 -- This is going to get me cancelled
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
+-- Free keys for tmux
+
+vim.keymap.set("i", "<C-b>", "<Nop>")
+
+
+-- Disable mouse
 vim.opt.mouse = ""
 
