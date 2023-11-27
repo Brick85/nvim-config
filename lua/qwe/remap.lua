@@ -6,6 +6,7 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set("x", "<leader>d", [["_d]])
 
 -- next greatest remap ever : asbjornHaland
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])

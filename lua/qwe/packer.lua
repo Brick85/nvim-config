@@ -54,14 +54,18 @@ return require("packer").startup(function(use)
 	})
 	use("jose-elias-alvarez/null-ls.nvim")
 	use("jay-babu/mason-null-ls.nvim")
-	use({
-		"laytan/tailwind-sorter.nvim",
-		requires = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
-		config = function()
-			require("tailwind-sorter").setup()
-		end,
-		run = "cd formatter && npm i && npm run build",
-	})
 	use("github/copilot.vim")
 	use("tpope/vim-commentary")
+	use("nvim-treesitter/nvim-treesitter-context")
+	use("mg979/vim-visual-multi")
+	if vim.env.VIMMODE == "node" then
+		use({
+			"laytan/tailwind-sorter.nvim",
+			requires = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
+			config = function()
+				require("tailwind-sorter").setup()
+			end,
+			run = "cd formatter && npm i && npm run build",
+		})
+	end
 end)
