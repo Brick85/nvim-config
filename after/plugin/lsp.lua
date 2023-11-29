@@ -2,7 +2,8 @@ local ensure_installed = {}
 local ensure_installed_null = {}
 
 if vim.env.VIMENV == "python" then
-	table.insert(ensure_installed, "pylsp")
+	-- table.insert(ensure_installed, "pylsp")
+	table.insert(ensure_installed, "jedi_language_server")
 	table.insert(ensure_installed_null, "isort")
 	table.insert(ensure_installed_null, "black")
 end
@@ -35,7 +36,7 @@ require("mason-lspconfig").setup({
 			require("lspconfig").tsserver.setup({
 				single_file_support = false,
 				on_attach = function(client, bufnr)
-					client.resolved_capabilities.document_formatting = false
+					client.server_capabilities.documentFormattingProvider = false
 				end,
 			})
 		end,

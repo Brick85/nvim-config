@@ -58,7 +58,7 @@ return require("packer").startup(function(use)
 	use("tpope/vim-commentary")
 	use("nvim-treesitter/nvim-treesitter-context")
 	use("mg979/vim-visual-multi")
-	if vim.env.VIMMODE == "node" then
+	if vim.env.VIMENV == "node" then
 		use({
 			"laytan/tailwind-sorter.nvim",
 			requires = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
