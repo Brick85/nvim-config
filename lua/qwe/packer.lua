@@ -9,19 +9,17 @@ return require("packer").startup(function(use)
 		-- or                            , branch = '0.1.x',
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
-	--  use {
-	--	  "catppuccin/nvim",
-	--	  as = "catppuccin",
-	--	  config = function()
-	--		  vim.cmd('colorscheme catppuccin-mocha')
-	--	  end
-	--  }
+	use({
+		"catppuccin/nvim",
+		as = "catppuccin",
+	})
 	use({
 		"rose-pine/neovim",
 		as = "rose-pine",
-		config = function()
-			vim.cmd("colorscheme rose-pine")
-		end,
+	})
+	use({
+		"tanvirtin/monokai.nvim",
+		as = "monokai",
 	})
 	use({
 		"nvim-treesitter/nvim-treesitter",
