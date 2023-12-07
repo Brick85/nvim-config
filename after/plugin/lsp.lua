@@ -18,6 +18,21 @@ if vim.env.VIMENV == "golang" then
 end
 
 local lsp_zero = require("lsp-zero")
+lsp_zero.extend_cmp()
+
+local cmp = require("cmp")
+local cmp_action = lsp_zero.cmp_action()
+
+cmp.setup({
+	mapping = cmp.mapping.preset.insert({
+		["<C-y>"] = cmp.mapping.confirm({ select = true }),
+		["<C-Space>"] = cmp.mapping.complete(),
+		["<C-f>"] = cmp_action.luasnip_jump_forward(),
+		["<C-g>"] = cmp_action.luasnip_jump_backward(),
+		["<C-u>"] = cmp.mapping.scroll_docs(-4),
+		["<C-d>"] = cmp.mapping.scroll_docs(4),
+	}),
+})
 
 lsp_zero.on_attach(function(client, bufnr)
 	-- see :help lsp-zero-keybindings

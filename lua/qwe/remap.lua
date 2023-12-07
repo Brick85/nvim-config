@@ -26,3 +26,11 @@ vim.opt.mouse = ""
 
 -- Autobrace
 -- vim.keymap.set("i", "{<CR>", "{<CR>}<Esc>ko")
+
+-- move lines
+vim.keymap.set("n", "<C-A-j>", ":m .+1<CR>==")
+vim.keymap.set("n", "<C-A-k>", ":m .-2<CR>==")
+vim.keymap.set("i", "<C-A-j>", "<Esc>:m .+1<CR>==gi")
+vim.keymap.set("i", "<C-A-k>", "<Esc>:m .-2<CR>==gi")
+vim.keymap.set("v", "<C-A-j>", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "<C-A-k>", ":m '<-2<CR>gv=gv")
