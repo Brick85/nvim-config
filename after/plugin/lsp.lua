@@ -3,7 +3,8 @@ local ensure_installed_null = {}
 
 if vim.env.VIMENV == "python" then
 	-- table.insert(ensure_installed, "pylsp")
-	table.insert(ensure_installed, "jedi_language_server")
+	-- table.insert(ensure_installed, "jedi_language_server")
+	table.insert(ensure_installed, "pyright")
 	table.insert(ensure_installed_null, "isort")
 	table.insert(ensure_installed_null, "black")
 end
