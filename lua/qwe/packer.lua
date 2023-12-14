@@ -85,7 +85,7 @@ return require("packer").startup(function(use)
 			run = "cd formatter && npm i && npm run build",
 		})
 	end
-	use("RRethy/vim-illuminate")
+	-- use("RRethy/vim-illuminate")
 	if packer_bootstrap then
 		require("packer").sync()
 	end
