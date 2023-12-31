@@ -72,9 +72,16 @@ return require("packer").startup(function(use)
 	use("jose-elias-alvarez/null-ls.nvim")
 	use("jay-babu/mason-null-ls.nvim")
 	use("github/copilot.vim")
-	use("tpope/vim-commentary")
+	-- use("tpope/vim-commentary")
+    use("numToStr/Comment.nvim")
+    -- use("JoosepAlviste/nvim-ts-context-commentstring")
+    use("Brick85/nvim-ts-context-commentstring")
 	use("nvim-treesitter/nvim-treesitter-context")
 	use("mg979/vim-visual-multi")
+    use("lukas-reineke/indent-blankline.nvim")
+    -- use("ur4ltz/surround.nvim")
+    use("AckslD/nvim-neoclip.lua")
+    use("lewis6991/gitsigns.nvim")
 	if vim.env.VIMENV == "node" then
 		use({
 			"laytan/tailwind-sorter.nvim",
