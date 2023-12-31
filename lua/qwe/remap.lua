@@ -39,3 +39,5 @@ vim.keymap.set("v", "<C-A-k>", ":m '<-2<CR>gv=gv")
 if vim.env.VIMENV == "golang" then
 	vim.keymap.set("n", "<F5>", ":!go run .<CR>")
 end
+
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
