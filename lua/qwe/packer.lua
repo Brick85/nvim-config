@@ -73,25 +73,25 @@ return require("packer").startup(function(use)
 	use("jay-babu/mason-null-ls.nvim")
 	use("github/copilot.vim")
 	-- use("tpope/vim-commentary")
-    use("numToStr/Comment.nvim")
-    -- use("JoosepAlviste/nvim-ts-context-commentstring")
-    use("Brick85/nvim-ts-context-commentstring")
+	use("numToStr/Comment.nvim")
+	-- use("JoosepAlviste/nvim-ts-context-commentstring")
+	use("Brick85/nvim-ts-context-commentstring")
 	use("nvim-treesitter/nvim-treesitter-context")
 	use("mg979/vim-visual-multi")
-    use("lukas-reineke/indent-blankline.nvim")
-    -- use("ur4ltz/surround.nvim")
-    use("AckslD/nvim-neoclip.lua")
-    use("lewis6991/gitsigns.nvim")
-	if vim.env.VIMENV == "node" then
-		use({
-			"laytan/tailwind-sorter.nvim",
-			requires = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
-			config = function()
-				require("tailwind-sorter").setup()
-			end,
-			run = "cd formatter && npm i && npm run build",
-		})
-	end
+	use("lukas-reineke/indent-blankline.nvim")
+	-- use("ur4ltz/surround.nvim")
+	use("AckslD/nvim-neoclip.lua")
+	use("lewis6991/gitsigns.nvim")
+	-- if vim.env.VIMENV == "node" then
+	use({
+		"laytan/tailwind-sorter.nvim",
+		requires = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
+		config = function()
+			require("tailwind-sorter").setup()
+		end,
+		run = "cd formatter && npm i && npm run build",
+	})
+	-- end
 	use("RRethy/vim-illuminate")
 	if packer_bootstrap then
 		require("packer").sync()

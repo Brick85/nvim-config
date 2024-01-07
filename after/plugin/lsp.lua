@@ -1,18 +1,19 @@
 local ensure_installed = {}
 local ensure_installed_null = {}
 
-if vim.env.VIMENV == "python" then
-	-- table.insert(ensure_installed, "pylsp")
-	-- table.insert(ensure_installed, "jedi_language_server")
-	table.insert(ensure_installed, "pyright")
-	table.insert(ensure_installed_null, "isort")
-	table.insert(ensure_installed_null, "black")
-end
+-- if vim.env.VIMENV == "python" then
+-- table.insert(ensure_installed, "pylsp")
+-- table.insert(ensure_installed, "jedi_language_server")
+table.insert(ensure_installed, "pyright")
+table.insert(ensure_installed_null, "isort")
+table.insert(ensure_installed_null, "black")
+-- end
 
-if vim.env.VIMENV == "node" then
-	table.insert(ensure_installed, "tsserver")
-	table.insert(ensure_installed_null, "prettierd")
-end
+-- if vim.env.VIMENV == "node" then
+table.insert(ensure_installed, "tsserver")
+table.insert(ensure_installed_null, "prettierd")
+table.insert(ensure_installed, "tailwindcss")
+-- end
 
 if vim.env.VIMENV == "golang" then
 	table.insert(ensure_installed, "gopls")
