@@ -41,3 +41,7 @@ if vim.env.VIMENV == "golang" then
 end
 
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
+
+vim.keymap.set("n", "<C-[>", ":cprevious<CR>")
+vim.keymap.set("n", "<C-]>", ":cnext<CR>")
+
