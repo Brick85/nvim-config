@@ -8,7 +8,7 @@ M.ensure_installed = {
     "yamlls",
     "jsonls",
     "tsserver",
-    "gopls",
+    -- "gopls",
 }
 
 M.ensure_installed_null = {

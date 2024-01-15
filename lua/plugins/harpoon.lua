@@ -2,8 +2,10 @@ return {
     {
         "ThePrimeagen/harpoon",
         branch = "harpoon2",
+        -- "~/projects/harpoon",
         dependencies = { { "nvim-lua/plenary.nvim" } },
         lazy = true,
+        opts = {},
         keys = {
             { "<leader>a", function() require("harpoon"):list():append() end,                                 "n" },
             { "<C-e>",     function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, "n" },
