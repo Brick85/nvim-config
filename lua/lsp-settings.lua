@@ -12,7 +12,7 @@ M.ensure_installed = {
 }
 
 M.ensure_installed_null = {
-    "prettierd",
+    -- "prettierd",
     -- "black",
     -- "isort",
 }

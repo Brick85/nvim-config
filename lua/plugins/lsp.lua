@@ -127,18 +127,18 @@ return {
             -- local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
             -- local event = "BufWritePre" -- or "BufWritePost"
             -- local async = event == "BufWritePost"
-            -- vim.g.format_on_save = true
-            -- vim.api.nvim_create_autocmd(event, {
-            --     group = group,
-            --     callback = function()
-            --         if not vim.g.format_on_save then
-            --             return
-            --         end
-            --         vim.lsp.buf.format({ async = async })
-            --         require("fidget").notify("Formatted")
-            --     end,
-            --     desc = "[lsp] format on save",
-            -- })
+            vim.g.format_on_save = true
+            vim.api.nvim_create_autocmd(event, {
+                group = group,
+                callback = function()
+                    if not vim.g.format_on_save then
+                        return
+                    end
+                    vim.lsp.buf.format({ async = async })
+                    require("fidget").notify("Formatted")
+                end,
+                desc = "[lsp] format on save",
+            })
 
             lspsettings.setup(lsp_capabilities)
         end,
