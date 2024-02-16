@@ -11,6 +11,23 @@ function ToggleFormatOnSave()
     end
 end
 
+function FormatFile(on_save)
+    if on_save and not vim.g.format_on_save then
+        return
+    end
+
+    local fidget = require("fidget")
+    vim.lsp.buf.format({
+        filter = function(client)
+            if client.name == "cssls" then
+                return false
+            end
+            fidget.notify("Formatted " .. client.name)
+            return true
+        end
+    })
+end
+
 return {
     {
         "neovim/nvim-lspconfig",
@@ -38,7 +55,7 @@ return {
                     vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
                     vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
                     vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-                    vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+                    vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua FormatFile(false)<cr>', opts)
                     vim.keymap.set({ 'n', 'x' }, '<leader><F3>', '<cmd>lua ToggleFormatOnSave()<cr>', opts)
                     vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
                 end
@@ -83,45 +100,58 @@ return {
                 },
             })
 
-            require("mason-null-ls").setup({
-                ensure_installed = lspsettings.ensure_installed_null,
-                handlers = {},
-            })
+            -- require("mason-null-ls").setup({
+            --     ensure_installed = lspsettings.ensure_installed_null,
+            --     handlers = {},
+            -- })
 
             local null_ls = require("null-ls")
 
             local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
             local event = "BufWritePre" -- or "BufWritePost"
-            local async = event == "BufWritePost"
+            -- local async = event == "BufWritePost"
 
             null_ls.setup({
-                on_attach = function(client, bufnr)
-                    if client.supports_method("textDocument/formatting") then
-                        -- vim.keymap.set("n", "<Leader>f", function()
-                        vim.keymap.set("n", "<leader>fd", function()
-                            vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
-                            require("fidget").notify("Formatted null")
-                        end, { buffer = bufnr, desc = "[lsp] format" })
-
-                        -- -- format on save
-                        -- vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
-                        -- vim.api.nvim_create_autocmd(event, {
-                        --     buffer = bufnr,
-                        --     group = group,
-                        --     callback = function()
-                        --         vim.lsp.buf.format({ bufnr = bufnr, async = async })
-                        --     end,
-                        --     desc = "[lsp] format on save",
-                        -- })
-                    end
-
-                    if client.supports_method("textDocument/rangeFormatting") then
-                        vim.keymap.set("x", "<Leader>fd", function()
-                            vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
-                        end, { buffer = bufnr, desc = "[lsp] format" })
-                    end
-                end,
-                -- debug = true,
+                -- on_attach = function(client, bufnr)
+                --     if client.supports_method("textDocument/formatting") then
+                --         -- vim.keymap.set("n", "<Leader>f", function()
+                --         vim.keymap.set("n", "<leader>fd", function()
+                --             vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+                --             require("fidget").notify("Formatted null")
+                --         end, { buffer = bufnr, desc = "[lsp] format" })
+                --
+                --         -- -- format on save
+                --         -- vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+                --         -- vim.api.nvim_create_autocmd(event, {
+                --         --     buffer = bufnr,
+                --         --     group = group,
+                --         --     callback = function()
+                --         --         vim.lsp.buf.format({ bufnr = bufnr, async = async })
+                --         --     end,
+                --         --     desc = "[lsp] format on save",
+                --         -- })
+                --     end
+                --
+                --     if client.supports_method("textDocument/rangeFormatting") then
+                --         vim.keymap.set("x", "<Leader>fd", function()
+                --             vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+                --         end, { buffer = bufnr, desc = "[lsp] format" })
+                --     end
+                -- end,
+                debug = true,
+                -- sources = {
+                --     null_ls.builtins.formatting.prettierd.with({
+                --         extra_filetypes = { "htmldjango" },
+                --     }), }
+                -- },
+                sources = {
+                    null_ls.builtins.formatting.djhtml,
+                    null_ls.builtins.formatting.prettierd,
+                    null_ls.builtins.formatting.isort,
+                    -- null_ls.builtins.formatting.prettierd.with({
+                    --     disabled_filetypes = { "sass", "scss", "css" },
+                    -- }),
+                }
             })
 
             -- local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
@@ -131,11 +161,7 @@ return {
             vim.api.nvim_create_autocmd(event, {
                 group = group,
                 callback = function()
-                    if not vim.g.format_on_save then
-                        return
-                    end
-                    vim.lsp.buf.format({ async = async })
-                    require("fidget").notify("Formatted")
+                    FormatFile(true)
                 end,
                 desc = "[lsp] format on save",
             })
