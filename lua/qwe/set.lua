@@ -34,3 +34,5 @@ vim.opt.updatetime = 100
 vim.opt.colorcolumn = "80"
 
 -- vim.g.netrw_banner = 0
+
+vim.opt.scroll = 22

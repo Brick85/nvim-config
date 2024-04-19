@@ -146,6 +146,7 @@ return {
                 -- },
                 sources = {
                     null_ls.builtins.formatting.djhtml,
+                    -- null_ls.builtins.formatting.djlint,
                     null_ls.builtins.formatting.prettierd,
                     null_ls.builtins.formatting.isort,
                     -- null_ls.builtins.formatting.prettierd.with({

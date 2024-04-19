@@ -7,10 +7,12 @@ return {
             { "<leader>ps", function()
                 require("telescope.builtin").grep_string({ search = vim.fn.input("Grep > ") })
             end, "n" },
-            { "<leader>ff", function() require("telescope.builtin").find_files() end, "n" },
-            { "<leader>fg", function() require("telescope.builtin").live_grep() end,  "n" },
-            { "<leader>fb", function() require("telescope.builtin").buffers() end,    "n" },
-            { "<leader>fh", function() require("telescope.builtin").help_tags() end,  "n" },
+            { "<leader>ff", function() require("telescope.builtin").find_files() end,     "n" },
+            { "<leader>fg", function() require("telescope.builtin").live_grep() end,      "n" },
+            { "<leader>fb", function() require("telescope.builtin").buffers() end,        "n" },
+            { "<leader>fh", function() require("telescope.builtin").help_tags() end,      "n" },
+            { "<leader>fr", function() require("telescope.builtin").resume() end,         "n" },
+            { "<leader>ft", function() require("telescope.builtin").lsp_references() end, "n" },
         },
         opts = {
             defaults = {
