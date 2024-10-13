@@ -28,20 +28,20 @@ vim.opt.mouse = ""
 -- vim.keymap.set("i", "{<CR>", "{<CR>}<Esc>ko")
 
 -- move lines
-vim.keymap.set("n", "<C-A-j>", ":m .+1<CR>==")
-vim.keymap.set("n", "<C-A-k>", ":m .-2<CR>==")
-vim.keymap.set("i", "<C-A-j>", "<Esc>:m .+1<CR>==gi")
-vim.keymap.set("i", "<C-A-k>", "<Esc>:m .-2<CR>==gi")
-vim.keymap.set("v", "<C-A-j>", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "<C-A-k>", ":m '<-2<CR>gv=gv")
+-- vim.keymap.set("n", "<C-A-j>", ":m .+1<CR>==")
+-- vim.keymap.set("n", "<C-A-k>", ":m .-2<CR>==")
+-- vim.keymap.set("i", "<C-A-j>", "<Esc>:m .+1<CR>==gi")
+-- vim.keymap.set("i", "<C-A-k>", "<Esc>:m .-2<CR>==gi")
+-- vim.keymap.set("v", "<C-A-j>", ":m '>+1<CR>gv=gv")
+-- vim.keymap.set("v", "<C-A-k>", ":m '<-2<CR>gv=gv")
 
 -- go
-if vim.env.VIMENV == "golang" then
-    vim.keymap.set("n", "<F5>", ":!go run .<CR>")
-end
+-- if vim.env.VIMENV == "golang" then
+--     vim.keymap.set("n", "<F5>", ":!go run .<CR>")
+-- end
 
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
 
 vim.keymap.set("n", "<C-[>", ":cprevious<CR>")
 vim.keymap.set("n", "<C-]>", ":cnext<CR>")
-
