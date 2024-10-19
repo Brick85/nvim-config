@@ -35,6 +35,6 @@ vim.opt.colorcolumn = "80"
 
 -- vim.g.netrw_banner = 0
 
-vim.opt.scroll = 22
+vim.opt.scroll = 15
 
 vim.g.netrw_bufsettings = "noma nomod nu rnu nobl nowrap ro"
