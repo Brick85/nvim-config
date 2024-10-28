@@ -12,6 +12,7 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 -- vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 -- vim.keymap.set("n", "<leader>Y", [["+Y]])
 
+vim.keymap.set({ "n", "x" }, "<leader>p", [["_dP]])
 vim.keymap.set({ "n", "x" }, "<leader>d", [["_d]])
 
 -- This is going to get me cancelled
