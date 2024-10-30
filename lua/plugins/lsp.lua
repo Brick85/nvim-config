@@ -38,7 +38,14 @@ return {
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp",
-			"L3MON4D3/LuaSnip",
+			{
+				"L3MON4D3/LuaSnip",
+				-- follow latest release.
+				version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+				-- install jsregexp (optional!).
+				-- build = "make install_jsregexp"
+			},
+			"saadparwaiz1/cmp_luasnip",
 			-- "jose-elias-alvarez/null-ls.nvim",
 			"nvimtools/none-ls.nvim",
 			"jay-babu/mason-null-ls.nvim",
@@ -83,6 +90,7 @@ return {
 
 			cmp.setup({
 				sources = {
+					{ name = "luasnip" },
 					{ name = "nvim_lsp" },
 					-- { name = "buffer", keyword_length = 3, max_item_count = 5 },
 					{ name = "buffer" },
@@ -186,6 +194,25 @@ return {
 			})
 
 			lspsettings.setup(lsp_capabilities)
+
+			local ls = require("luasnip")
+			vim.keymap.set({ "i" }, "<C-K>", function()
+				ls.expand()
+			end, { silent = true })
+			vim.keymap.set({ "i", "s" }, "<C-L>", function()
+				ls.jump(1)
+			end, { silent = true })
+
+			vim.keymap.set({ "i", "s" }, "<C-J>", function()
+				ls.jump(-1)
+			end, { silent = true })
+
+			vim.keymap.set({ "i", "s" }, "<C-E>", function()
+				if ls.choice_active() then
+					ls.change_choice(1)
+				end
+			end, { silent = true })
+			require("snippets")
 		end,
 	},
 }

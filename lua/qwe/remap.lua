@@ -46,3 +46,5 @@ vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
 
 -- vim.keymap.set("n", "<C-[>", ":cprevious<CR>")
 -- vim.keymap.set("n", "<C-]>", ":cnext<CR>")
+--
+vim.keymap.set("n", "<leader>ls", "<cmd>source ~/.config/nvim/lua/snippets.lua<CR>")
