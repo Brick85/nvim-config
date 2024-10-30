@@ -35,6 +35,8 @@ return {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"hrsh7th/nvim-cmp",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp",
 			"L3MON4D3/LuaSnip",
 			-- "jose-elias-alvarez/null-ls.nvim",
@@ -82,6 +84,9 @@ return {
 			cmp.setup({
 				sources = {
 					{ name = "nvim_lsp" },
+					-- { name = "buffer", keyword_length = 3, max_item_count = 5 },
+					{ name = "buffer" },
+					{ name = "path" },
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<CR>"] = cmp.mapping.confirm({ select = false }),
@@ -96,6 +101,17 @@ return {
 				snippet = {
 					expand = function(args)
 						require("luasnip").lsp_expand(args.body)
+					end,
+				},
+				formatting = {
+					format = function(entry, vim_item)
+						-- vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
+						vim_item.menu = ({
+							nvim_lsp = "[LSP]",
+							buffer = "[Buffer]",
+							path = "[Path]",
+						})[entry.source.name]
+						return vim_item
 					end,
 				},
 			})
