@@ -21,14 +21,14 @@ local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.conditions")
 local conds_expand = require("luasnip.extras.conditions.expand")
 
--- ls.cleanup()
+ls.cleanup()
 
 ls.add_snippets("python", {
 	-- ls.add_snippets("all", {
 	s("pprint(", {
 		t({ "from pprint import pprint; pprint(" }),
 		i(1, "data"),
-		t(")", ""),
+		t(")  # fmt: skip", ""),
 	}),
 })
 ls.add_snippets("htmldjango", {
