@@ -3,8 +3,8 @@ vim.g.loaded_ts_context_commentstring = 1
 
 return {
     {
-        -- "JoosepAlviste/nvim-ts-context-commentstring",
-        "Brick85/nvim-ts-context-commentstring",
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        -- "Brick85/nvim-ts-context-commentstring",
     },
     {
         "nvim-treesitter/nvim-treesitter-context",

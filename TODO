@@ -1,3 +1,4 @@
 # plans for next config iteration:
 
 1. add snips, custom, for scss, django templates
+2. think about using https://github.com/stevearc/conform.nvim
