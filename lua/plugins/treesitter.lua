@@ -6,7 +6,9 @@ return { {
 
         configs.setup({
             ensure_installed = {
-                "html",
+                "lua",
+                "markdown",
+                "vimdoc",
             },
             auto_install = true,
             sync_install = false,

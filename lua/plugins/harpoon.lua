@@ -7,7 +7,7 @@ return {
         lazy = true,
         opts = {},
         keys = {
-            { "<leader>a", function() require("harpoon"):list():append() end,                                 "n" },
+            { "<leader>a", function() require("harpoon"):list():add() end,                                    "n" },
             { "<C-e>",     function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, "n" },
             { "<C-j>",     function() require("harpoon"):list():select(1) end,                                "n" },
             { "<C-k>",     function() require("harpoon"):list():select(2) end,                                "n" },

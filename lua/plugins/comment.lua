@@ -8,7 +8,9 @@ return {
     },
     {
         "nvim-treesitter/nvim-treesitter-context",
-        dependencies = { "Brick85/nvim-ts-context-commentstring", },
+        dependencies = {
+            "JoosepAlviste/nvim-ts-context-commentstring", 
+        },
     },
     {
         "numToStr/Comment.nvim",
@@ -17,6 +19,9 @@ return {
                 pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
             })
         end,
-        dependencies = { "nvim-treesitter/nvim-treesitter-context", "Brick85/nvim-ts-context-commentstring" },
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter-context",
+            "JoosepAlviste/nvim-ts-context-commentstring" 
+        },
     },
 }
