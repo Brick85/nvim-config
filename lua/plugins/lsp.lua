@@ -198,6 +198,9 @@ return {
 				--    extra_filetypes = { "htmldjango" },
 				-- }),
 			end
+			if null_ls_srcs.prettier then
+				table.insert(null_ls_sources, null_ls.builtins.formatting.prettier)
+			end
 			-- /ENABLE NULL LS
 
 			null_ls.setup({
