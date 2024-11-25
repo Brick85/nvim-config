@@ -2,18 +2,6 @@ vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
 vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
 vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>")
 
-local localconf = {}
-
-local success, data = pcall(dofile, "/home/vital/.dotfiles/.nvim.lua")
-if success then
-	localconf = data
-end
-
-success, data = pcall(dofile, "/app/.nvim.lua")
-if success then
-	localconf = data
-end
-
 function ToggleFormatOnSave()
 	vim.g.format_on_save = not vim.g.format_on_save
 	if vim.g.format_on_save then
@@ -56,6 +44,7 @@ return {
 			-- "stevearc/conform.nvim",
 		},
 		config = function()
+			local localconf = require("qwe.localconf")
 			-- local lspsettings = require("lsp-settings")
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP actions",
@@ -86,19 +75,22 @@ return {
 			-- /get capabilities
 
 			require("mason").setup({})
-			require("mason-lspconfig").setup({
-				ensure_installed = localconf.ensure_installed.lsp,
-				handlers = {
-					function() end,
-				},
-			})
-			require("mason-null-ls").setup({
-				ensure_installed = localconf.ensure_installed.null,
-				-- automatic_installation = true,
-				handlers = {
-					function() end,
-				},
-			})
+
+			if localconf.ensure_installed ~= nil then
+				require("mason-lspconfig").setup({
+					ensure_installed = localconf.ensure_installed.lsp,
+					handlers = {
+						function() end,
+					},
+				})
+				require("mason-null-ls").setup({
+					ensure_installed = localconf.ensure_installed.null,
+					-- automatic_installation = true,
+					handlers = {
+						function() end,
+					},
+				})
+			end
 
 			local lspconfig = require("lspconfig")
 
@@ -151,56 +143,60 @@ return {
 			-- /ENABLE LSP
 
 			local null_ls = require("null-ls")
-
-			-- ENABLE NULL LS
 			local null_ls_sources = {}
-			local null_ls_srcs = {}
-			if localconf.ensure_installed then
-				for _, source in ipairs(localconf.ensure_installed.null) do
-					null_ls_srcs[source] = true
-				end
-			end
-			if localconf.enabled then
-				for _, source in ipairs(localconf.enabled.null) do
-					null_ls_srcs[source] = true
-				end
-			end
+			local null_ls_srcs = {
+				isort = null_ls.builtins.formatting.isort,
+				pylint = null_ls.builtins.diagnostics.pylint,
+				djhtml = null_ls.builtins.formatting.djhtml,
+				djlint = null_ls.builtins.formatting.djlint,
+				stylua = null_ls.builtins.formatting.stylua,
+				prettier = null_ls.builtins.formatting.prettier,
+			}
 
-			if null_ls_srcs.isort then
-				table.insert(null_ls_sources, null_ls.builtins.formatting.isort)
+			local default_setup_null = function(source)
+				if null_ls_srcs[source] then
+					table.insert(null_ls_sources, null_ls_srcs[source])
+				else
+					print("Unknown null_ls source: " .. source)
+				end
 			end
-			if null_ls_srcs.pylint ~= nil then
-				table.insert(null_ls_sources, null_ls.builtins.diagnostics.pylint)
-			end
-			if null_ls_srcs.djhtml ~= nil then
-				table.insert(null_ls_sources, null_ls.builtins.formatting.djhtml)
-			end
-			if null_ls_srcs.djlint ~= nil then
-				table.insert(null_ls_sources, null_ls.builtins.formatting.djlint)
-			end
-			if null_ls_srcs.stylua ~= nil then
-				table.insert(null_ls_sources, null_ls.builtins.formatting.stylua)
-			end
-			if null_ls_srcs.blackd ~= nil then
-				table.insert(
-					null_ls_sources,
-					null_ls.builtins.formatting.blackd.with({
-						config = {
-							hostname = "blackd",
-						},
-					})
-				)
-			end
-			if null_ls_srcs.prettierd ~= nil then
-				table.insert(null_ls_sources, null_ls.builtins.formatting.prettierd)
+			local custom_setup_null = {
+				blackd = function()
+					table.insert(
+						null_ls_sources,
+						null_ls.builtins.formatting.blackd.with({
+							config = {
+								hostname = "blackd",
+							},
+						})
+					)
+				end,
 				-- null_ls.builtins.formatting.prettierd.with({
 				--    disabled_filetypes = { "sass", "scss", "css" },
 				--    extra_filetypes = { "htmldjango" },
 				-- }),
+			}
+
+			-- ENABLE NULL LS
+			if localconf.ensure_installed then
+				for _, source in ipairs(localconf.ensure_installed.null) do
+					if custom_setup_null[source] then
+						custom_setup_null[source]()
+					else
+						default_setup_null(source)
+					end
+				end
 			end
-			if null_ls_srcs.prettier then
-				table.insert(null_ls_sources, null_ls.builtins.formatting.prettier)
+			if localconf.enabled then
+				for _, source in ipairs(localconf.enabled.null) do
+					if custom_setup_null[source] then
+						custom_setup_null[source]()
+					else
+						default_setup_null(source)
+					end
+				end
 			end
+
 			-- /ENABLE NULL LS
 
 			null_ls.setup({
