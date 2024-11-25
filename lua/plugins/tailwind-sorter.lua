@@ -10,8 +10,8 @@ return {
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
 		build = "cd formatter && npm i && npm run build",
 		config = true,
-		lazy = true,
-		cmd = { "TailwindSort", "TailwindSortOnSaveToggle" },
+		-- lazy = true,
+		-- cmd = { "TailwindSort", "TailwindSortOnSaveToggle" },
 		opts = {
 			on_save_enabled = true,
 		},
