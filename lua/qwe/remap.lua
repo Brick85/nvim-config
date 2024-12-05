@@ -23,7 +23,7 @@ vim.keymap.set({ "n", "x" }, "<leader>d", [["_d]])
 vim.keymap.set("i", "<C-b>", "<Nop>")
 
 -- Disable mouse
-vim.opt.mouse = ""
+-- vim.opt.mouse = ""
 
 -- Autobrace
 -- vim.keymap.set("i", "{<CR>", "{<CR>}<Esc>ko")
