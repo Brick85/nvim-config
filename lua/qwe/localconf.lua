@@ -2,7 +2,9 @@ local localconf = {}
 
 local gotconfig = false
 
-local success, data = pcall(dofile, "/home/vital/.dotfiles/.nvim.lua")
+local global_nvim_lua = vim.fn.expand('$HOME/.dotfiles/nvim.lua')
+
+local success, data = pcall(dofile, global_nvim_lua)
 if success then
 	localconf = data
 	gotconfig = true
