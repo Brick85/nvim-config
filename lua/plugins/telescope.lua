@@ -1,3 +1,4 @@
+local custom_actions = require("plugins-add.telescope_ca")
 return {
 	{
 		"nvim-telescope/telescope.nvim",
@@ -26,7 +27,8 @@ return {
 			{
 				"<leader>fg",
 				function()
-					require("telescope.builtin").live_grep()
+					-- require("telescope.builtin").live_grep()
+					custom_actions.live_multigrep()
 				end,
 				"n",
 			},
@@ -109,6 +111,7 @@ return {
 			})
 			require("telescope").load_extension("ui-select")
 			-- require("telescope").load_extension("file_browser")
+			--
 		end,
 	},
 }
