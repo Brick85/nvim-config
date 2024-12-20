@@ -2,3 +2,4 @@
 
 1. add snips, custom, for scss, django templates
 2. think about using https://github.com/stevearc/conform.nvim
+3. move from nvim-cmp to https://github.com/Saghen/blink.cmp
