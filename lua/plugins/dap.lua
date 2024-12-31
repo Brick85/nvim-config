@@ -4,10 +4,14 @@ if not localconf.plugins or not localconf.plugins.enable_dap then
 	return {}
 end
 
+local state = {
+	opened = false,
+}
+
 return {
 	{
 		"mfussenegger/nvim-dap",
-		lazy = true,
+		-- lazy = true,
 		dependencies = {
 			"mfussenegger/nvim-dap-python",
 			-- "leoluz/nvim-dap-go",
@@ -69,17 +73,31 @@ return {
 			vim.keymap.set("n", "<F11>", dap.step_back)
 
 			dap.listeners.before.attach.dapui_config = function()
+				state.opened = true
 				ui.open()
 			end
 			dap.listeners.before.launch.dapui_config = function()
+				state.opened = true
 				ui.open()
 			end
 			dap.listeners.before.event_terminated.dapui_config = function()
+				state.opened = false
 				ui.close()
 			end
 			dap.listeners.before.event_exited.dapui_config = function()
+				state.opened = false
 				ui.close()
 			end
+
+			vim.keymap.set("n", "<space>du", function()
+				if state.opened then
+					state.opened = false
+					ui.close()
+				else
+					state.opened = true
+					ui.open()
+				end
+			end)
 		end,
 	},
 }
