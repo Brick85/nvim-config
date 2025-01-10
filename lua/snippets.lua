@@ -33,6 +33,18 @@ from pprint import pprint; pprint(<data>)  # fmt: skip
 			{ data = i(1, "data"), finish = i(0) }
 		)
 	),
+	s(
+		"initdjango",
+		fmta(
+			[[
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', "<projectname>.settings")
+import django
+django.setup()
+<finish>]],
+			{ projectname = i(1, "projectname"), finish = i(0) }
+		)
+	),
 })
 
 ls.add_snippets("htmldjango", {
