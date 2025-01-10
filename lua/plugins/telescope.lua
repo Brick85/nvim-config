@@ -1,4 +1,4 @@
-local custom_actions = require("plugins-add.telescope_ca")
+local custom_actions
 return {
 	{
 		"nvim-telescope/telescope.nvim",
@@ -88,6 +88,8 @@ return {
 		--     },
 		-- },
 		config = function()
+			custom_actions = require("plugins-add.telescope_ca")
+			custom_actions.setup()
 			require("telescope").setup({
 				defaults = {
 					file_ignore_patterns = { "node_modules", ".git", ".cache", "__pycache__", "migrations" },

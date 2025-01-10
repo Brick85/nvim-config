@@ -1,11 +1,19 @@
 local M = {}
-local pickers = require("telescope.pickers")
-local finders = require("telescope.finders")
-local conf = require("telescope.config").values
-local sorters = require("telescope.sorters")
-local actions = require("telescope.actions")
-local make_entry = require("telescope.make_entry")
+local pickers
+local finders
+local conf
+local sorters
+local actions
+local make_entry
 
+M.setup = function()
+	pickers = require("telescope.pickers")
+	finders = require("telescope.finders")
+	conf = require("telescope.config").values
+	sorters = require("telescope.sorters")
+	actions = require("telescope.actions")
+	make_entry = require("telescope.make_entry")
+end
 M.live_multigrep = function(opts)
 	opts = opts or {}
 	opts.cwd = opts.cwd or vim.uv.cwd()
