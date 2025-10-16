@@ -92,33 +92,59 @@ return {
 				})
 			end
 
-			local lspconfig = require("lspconfig")
+			-- local lspconfig = vim.lsp.config()
+			-- local lspconfig = require("lspconfig")
+			local caps = vim.lsp.protocol.make_client_capabilities()
+			local ok_cmp, cmp = pcall(require, "cmp_nvim_lsp")
+			if ok_cmp then
+				caps = cmp.default_capabilities(caps)
+			end
 
 			local default_setup_lsp = function(server)
-				lspconfig[server].setup({
-					capabilities = lspconfig_defaults,
+				-- lspconfig[server].setup({
+				-- 	capabilities = lspconfig_defaults,
+				-- })
+				vim.lsp.config(server, {
+					capabilities = caps,
 				})
+				vim.lsp.enable(server)
 			end
 			local custom_setup_lsp = {
 				lua_ls = function()
-					lspconfig.lua_ls.setup({
-						capabilities = lspconfig_defaults,
+					-- lspconfig.lua_ls.setup({
+					-- 	capabilities = lspconfig_defaults,
+					-- 	settings = {
+					-- 		Lua = {
+					-- 			runtime = {
+					-- 				version = "LuaJIT",
+					-- 			},
+					-- 			diagnostics = {
+					-- 				globals = { "vim" },
+					-- 			},
+					-- 			workspace = {
+					-- 				library = {
+					-- 					vim.env.VIMRUNTIME,
+					-- 				},
+					-- 			},
+					-- 		},
+					-- 	},
+					-- })
+					vim.lsp.config("lua_ls", {
+						capabilities = caps,
 						settings = {
 							Lua = {
-								runtime = {
-									version = "LuaJIT",
-								},
-								diagnostics = {
-									globals = { "vim" },
-								},
+								runtime = { version = "LuaJIT" },
+								diagnostics = { globals = { "vim" } },
 								workspace = {
-									library = {
-										vim.env.VIMRUNTIME,
-									},
+									-- load Neovim runtime for full stdlib/`vim` awareness
+									library = vim.api.nvim_get_runtime_file("", true),
+									checkThirdParty = false,
 								},
+								telemetry = { enable = false },
 							},
 						},
 					})
+					vim.lsp.enable("lua_ls")
 				end,
 			}
 			-- ENABLE LSP
